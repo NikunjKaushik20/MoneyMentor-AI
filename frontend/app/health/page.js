@@ -1,252 +1,118 @@
 "use client";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { getHealthScore } from "../../lib/api";
-
-const DIMENSIONS = [
-  "Emergency Fund",
-  "Insurance Coverage",
-  "Investment Diversification",
-  "Debt Health",
-  "Tax Efficiency",
-  "Retirement Readiness",
-];
-
-const DIMENSION_ICONS = {
-  "Emergency Fund": "🛡️",
-  "Insurance Coverage": "❤️",
-  "Investment Diversification": "📊",
-  "Debt Health": "💳",
-  "Tax Efficiency": "📋",
-  "Retirement Readiness": "🏖️",
-};
 
 export default function HealthPage() {
   const [form, setForm] = useState({
-    annual_income: "",
-    monthly_expenses: "",
-    emergency_fund: "",
-    life_cover: "",
-    health_cover: "",
-    dependants: 1,
-    total_investments: "",
-    equity_pct: 60,
-    debt_pct: 30,
-    gold_pct: 10,
-    monthly_emi: "",
-    avg_loan_rate: 0,
-    missed_deductions_count: 0,
-    tax_potential_savings: 0,
-    current_corpus: "",
-    monthly_sip: "",
-    age: 30,
-    retirement_age: 60,
+    annual_income: "", monthly_expenses: "", emergency_fund: "",
+    life_cover: "", health_cover: "", dependants: 1,
+    total_investments: "", equity_pct: 60, debt_pct: 30, gold_pct: 10,
+    monthly_emi: "", avg_loan_rate: 0,
+    missed_deductions_count: 0, tax_potential_savings: 0,
+    current_corpus: "", monthly_sip: "", age: 30, retirement_age: 60,
   });
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
   const num = (v) => parseFloat(v) || 0;
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+    e.preventDefault(); setLoading(true); setError(null);
     try {
-      const payload = {
-        annual_income: num(form.annual_income),
-        monthly_expenses: num(form.monthly_expenses),
-        emergency_fund: num(form.emergency_fund),
-        life_cover: num(form.life_cover),
-        health_cover: num(form.health_cover),
-        dependants: num(form.dependants),
-        total_investments: num(form.total_investments),
-        equity_pct: num(form.equity_pct),
-        debt_pct: num(form.debt_pct),
-        gold_pct: num(form.gold_pct),
-        monthly_emi: num(form.monthly_emi),
-        avg_loan_rate: num(form.avg_loan_rate),
-        missed_deductions_count: num(form.missed_deductions_count),
-        tax_potential_savings: num(form.tax_potential_savings),
-        current_corpus: num(form.current_corpus),
-        monthly_sip: num(form.monthly_sip),
-        age: num(form.age),
-        retirement_age: num(form.retirement_age),
-      };
-      const data = await getHealthScore(payload);
-      setResult(data);
-    } catch (e) {
-      setError(e.message);
-    } finally {
-      setLoading(false);
-    }
+      const payload = Object.fromEntries(Object.entries(form).map(([k, v]) => [k, num(v)]));
+      setResult(await getHealthScore(payload));
+    } catch (e) { setError(e.message); }
+    finally { setLoading(false); }
   };
 
-  const scoreColor = (s) => s >= 70 ? "text-emerald-400" : s >= 50 ? "text-amber-400" : "text-red-400";
-  const scoreBg = (s) => s >= 70 ? "bg-emerald-500" : s >= 50 ? "bg-amber-500" : "bg-red-500";
-  const gradeColor = (g) => ({ A: "text-emerald-400", B: "text-blue-400", C: "text-amber-400", D: "text-orange-400", F: "text-red-400" }[g] || "text-gray-400");
+  const scoreColor = (s) => s >= 70 ? "text-emerald-400" : s >= 50 ? "text-amber-400" : "text-[#E4002B]";
+  const scoreBg = (s) => s >= 70 ? "bg-emerald-500" : s >= 50 ? "bg-amber-500" : "bg-[#E4002B]";
 
-  const InputField = ({ label, field, type = "number", placeholder = "0" }) => (
-    <div>
-      <label className="text-xs text-gray-400 block mb-1">{label}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={form[field] || ""}
-        onChange={(e) => set(field, type === "number" ? e.target.value : e.target.value)}
-        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none transition-colors"
-      />
-    </div>
+  const Field = ({ label, field, placeholder = "0" }) => (
+    <label className="flex items-center justify-between py-2 group" style={{ borderBottom: '1px solid var(--border)' }}>
+      <span className="font-mono text-[10px] tracking-wider uppercase transition-colors" style={{ color: 'var(--text-muted)' }}>{label}</span>
+      <input type="number" placeholder={placeholder} value={form[field] || ""} onChange={(e) => set(field, e.target.value)}
+        className="input-terminal text-right w-28" />
+    </label>
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-white">Money Health Score</h2>
-        <p className="text-sm text-gray-500 mt-1">Rate your financial fitness across 6 dimensions · Takes 2 minutes</p>
+        <span className="font-mono text-[10px] text-[#E4002B] tracking-[0.2em] block mb-2">Financial Fitness</span>
+        <h1 className="text-massive text-4xl md:text-6xl">MONEY<br/>HEALTH</h1>
+        <p className="text-editorial text-lg mt-2" style={{ color: 'var(--text-muted)' }}>6-dimension financial fitness score · 2 min quiz</p>
       </div>
 
       {!result ? (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Income & Expenses */}
-          <div className="glass-card p-5 space-y-4">
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wide">💰 Income & Expenses</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <InputField label="Annual Income (₹)" field="annual_income" placeholder="1200000" />
-              <InputField label="Monthly Expenses (₹)" field="monthly_expenses" placeholder="50000" />
-              <InputField label="Age" field="age" placeholder="30" />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {[
+            { title: "Income & Expenses", fields: [["Annual Income", "annual_income", "1200000"], ["Monthly Expenses", "monthly_expenses", "50000"], ["Age", "age", "30"]] },
+            { title: "Emergency Fund", fields: [["Emergency Savings", "emergency_fund", "300000"]] },
+            { title: "Insurance", fields: [["Life Cover", "life_cover", "10000000"], ["Health Cover", "health_cover", "500000"], ["Dependants", "dependants", "1"]] },
+            { title: "Investments", fields: [["Total Investments", "total_investments", "500000"], ["Equity %", "equity_pct", "60"], ["Debt %", "debt_pct", "30"], ["Retirement Corpus", "current_corpus", "0"], ["Monthly SIP", "monthly_sip", "10000"], ["Retirement Age", "retirement_age", "60"]] },
+            { title: "Debt & Loans", fields: [["Monthly EMI", "monthly_emi", "0"], ["Avg Loan Rate %", "avg_loan_rate", "8.5"]] },
+          ].map(({ title, fields }) => (
+            <div key={title} className="p-6" style={{ border: '1px solid var(--border)' }}>
+              <p className="font-mono text-[10px] tracking-wider uppercase mb-4" style={{ color: 'var(--text-muted)' }}>{title}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8">
+                {fields.map(([label, field, ph]) => <Field key={field} label={label} field={field} placeholder={ph} />)}
+              </div>
             </div>
-          </div>
-
-          {/* Emergency Fund */}
-          <div className="glass-card p-5 space-y-4">
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wide">🛡️ Emergency Fund</h3>
-            <InputField label="Emergency Fund in Savings/Liquid Funds (₹)" field="emergency_fund" placeholder="300000" />
-          </div>
-
-          {/* Insurance */}
-          <div className="glass-card p-5 space-y-4">
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wide">❤️ Insurance</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <InputField label="Term Life Cover (₹)" field="life_cover" placeholder="10000000" />
-              <InputField label="Health Insurance Cover (₹)" field="health_cover" placeholder="500000" />
-              <InputField label="Number of Dependants" field="dependants" placeholder="1" />
-            </div>
-          </div>
-
-          {/* Investments */}
-          <div className="glass-card p-5 space-y-4">
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wide">📊 Investments</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <InputField label="Total Investments (₹)" field="total_investments" placeholder="500000" />
-              <InputField label="Equity %" field="equity_pct" placeholder="60" />
-              <InputField label="Debt %" field="debt_pct" placeholder="30" />
-              <InputField label="Gold %" field="gold_pct" placeholder="10" />
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <InputField label="Current Retirement Corpus (₹)" field="current_corpus" placeholder="0" />
-              <InputField label="Monthly SIP (₹)" field="monthly_sip" placeholder="10000" />
-              <InputField label="Target Retirement Age" field="retirement_age" placeholder="60" />
-            </div>
-          </div>
-
-          {/* Debt */}
-          <div className="glass-card p-5 space-y-4">
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wide">💳 Debt & Loans</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <InputField label="Total Monthly EMI (₹)" field="monthly_emi" placeholder="0" />
-              <InputField label="Avg Loan Interest Rate (%)" field="avg_loan_rate" placeholder="8.5" />
-            </div>
-          </div>
-
-          {/* Tax */}
-          <div className="glass-card p-5 space-y-4">
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wide">📋 Tax Efficiency</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <InputField label="Missed Deductions Count" field="missed_deductions_count" placeholder="0" />
-              <InputField label="Potential Tax Savings (₹)" field="tax_potential_savings" placeholder="0" />
-            </div>
-            <p className="text-xs text-gray-600">Use the Tax Analysis tab to get these figures automatically.</p>
-          </div>
-
-          {error && <p className="text-red-400 text-sm">⚠️ {error}</p>}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-sm hover:from-indigo-500 hover:to-purple-500 transition-all disabled:opacity-50"
-          >
-            {loading ? "Calculating…" : "🧮 Calculate My Health Score"}
+          ))}
+          {error && <p className="font-mono text-[10px] text-[#E4002B]">⚠ {error}</p>}
+          <button type="submit" disabled={loading} className="btn-primary w-full text-center disabled:opacity-50">
+            {loading ? "Computing..." : "Calculate Health Score →"}
           </button>
         </form>
       ) : (
-        <div className="space-y-6 animate-fade-in">
-          {/* Overall Score */}
-          <div className="glass-card p-8 text-center glow-blue">
-            <p className="text-gray-400 text-sm mb-2">Your Money Health Score</p>
-            <div className="relative inline-block">
-              <p className={`text-8xl font-black ${scoreColor(result.overall_score)}`}>{result.overall_score}</p>
-              <span className="text-2xl text-gray-500">/100</span>
-            </div>
-            <p className={`text-3xl font-bold mt-2 ${gradeColor(result.grade)}`}>Grade {result.grade}</p>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+          <div className="p-10 text-center" style={{ border: '1px solid var(--border)' }}>
+            <p className="font-mono text-[10px] tracking-wider mb-4" style={{ color: 'var(--text-faint)' }}>Your Money Health Score</p>
+            <p className={`text-massive text-[120px] leading-none ${scoreColor(result.overall_score)}`}>{result.overall_score}</p>
+            <p className="font-mono text-[10px] mt-2" style={{ color: 'var(--text-faint)' }}>/100 · Grade {result.grade}</p>
             {result.projected_score_after_actions && (
-              <p className="text-sm text-gray-500 mt-2">
-                Follow recommendations → <span className="text-emerald-400 font-bold">{result.projected_score_after_actions}/100</span>
+              <p className="text-editorial text-lg mt-4" style={{ color: 'var(--text-muted)' }}>
+                After actions → <span className="text-emerald-400">{result.projected_score_after_actions}/100</span>
               </p>
             )}
           </div>
 
-          {/* Radar Bars */}
-          <div className="glass-card p-5">
-            <h3 className="text-white font-semibold mb-4">Dimension Breakdown</h3>
-            <div className="space-y-4">
-              {result.dimensions?.map((d) => (
-                <div key={d.name}>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-gray-300">
-                      {DIMENSION_ICONS[d.name] || "📌"} {d.name}
-                    </span>
-                    <span className={`text-sm font-bold ${scoreColor(d.score)}`}>{d.score}/100</span>
+          <div className="p-6 space-y-4" style={{ border: '1px solid var(--border)' }}>
+            <p className="font-mono text-[10px] tracking-wider mb-2" style={{ color: 'var(--text-muted)' }}>Dimension Breakdown</p>
+            {result.dimensions?.map((d) => (
+              <div key={d.name}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{d.name}</span>
+                  <span className={`text-sm font-bold font-mono ${scoreColor(d.score)}`}>{d.score}/100</span>
+                </div>
+                <div className="h-1 overflow-hidden" style={{ background: 'var(--border)' }}>
+                  <motion.div initial={{ width: 0 }} animate={{ width: `${d.score}%` }} transition={{ duration: 0.8, delay: 0.2 }}
+                    className={`h-full ${scoreBg(d.score)}`} />
+                </div>
+                <p className="text-[10px] mt-1" style={{ color: 'var(--text-faint)' }}>{d.improvement_tip}</p>
+              </div>
+            ))}
+          </div>
+
+          {result.improvement_actions?.length > 0 && (
+            <div className="p-6 space-y-3" style={{ border: '1px solid var(--border)' }}>
+              <p className="font-mono text-[10px] text-[#E4002B] tracking-wider mb-2">Top Actions</p>
+              {result.improvement_actions.map((a, i) => (
+                <div key={i} className="p-4 hover:opacity-80 transition-all" style={{ border: '1px solid var(--border)' }}>
+                  <div className="flex justify-between items-start">
+                    <p className="text-sm font-medium">{a.dimension}</p>
+                    <span className="font-mono text-[10px] text-[#E4002B]">+{a.score_impact} pts</span>
                   </div>
-                  <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all duration-700 ${scoreBg(d.score)}`}
-                      style={{ width: `${d.score}%`, opacity: 0.8 }}
-                    />
-                  </div>
-                  <p className="text-[11px] text-gray-600 mt-1">{d.improvement_tip}</p>
+                  <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>{a.tip}</p>
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Top Actions */}
-          {result.improvement_actions?.length > 0 && (
-            <div className="glass-card p-5">
-              <h3 className="text-white font-semibold mb-3">🎯 Top 3 Improvement Actions</h3>
-              <div className="space-y-3">
-                {result.improvement_actions.map((a, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-white/3 border border-white/8">
-                    <div className="flex items-start justify-between">
-                      <p className="text-white text-sm font-medium">{a.dimension}</p>
-                      <span className="text-xs text-indigo-400 bg-indigo-500/20 px-2 py-0.5 rounded-full">
-                        +{a.score_impact} pts
-                      </span>
-                    </div>
-                    <p className="text-gray-400 text-xs mt-1">{a.tip}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
           )}
-
-          <button
-            onClick={() => setResult(null)}
-            className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-          >
-            ← Recalculate
-          </button>
-        </div>
+          <button onClick={() => setResult(null)} className="btn-bracket text-[9px]">← Recalculate</button>
+        </motion.div>
       )}
     </div>
   );

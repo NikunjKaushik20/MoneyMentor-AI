@@ -10,6 +10,9 @@ from routes.fire_routes import router as fire_router
 from routes.alerts_routes import router as alerts_router
 from routes.demo_routes import router as demo_router
 from routes.couples_routes import router as couples_router
+from routes.afford_routes import router as afford_router
+from routes.budget_routes import router as budget_router
+from routes.onboarding_routes import router as onboarding_router
 from config.settings import settings
 
 app = FastAPI(
@@ -73,3 +76,6 @@ app.include_router(fire_router, prefix="/api")
 app.include_router(alerts_router, prefix="/api")
 app.include_router(demo_router, prefix="/api")
 app.include_router(couples_router, prefix="/api")
+app.include_router(afford_router, prefix="/api")
+app.include_router(budget_router, prefix="/api")
+app.include_router(onboarding_router, prefix="/api")

@@ -117,3 +117,73 @@ Make it personal, encouraging, and action-oriented. Start with the most impactfu
         max_tokens=300,
     )
     return resp.choices[0].message.content.strip()
+
+def determine_best_tool(answers: dict) -> dict:
+    """Uses LLM to evaluate the onboarding answers and route to the best tool."""
+    client = OpenAI(api_key=settings.OPENAI_API_KEY)
+
+    prompt = f"""You are the ET MoneyMentor Onboarding AI.
+The user has answered 3 questions about their financial state:
+1. Primary Goal: {answers.get('q1', 'N/A')}
+2. Current Situation: {answers.get('q2', 'N/A')}
+3. Immediate Need: {answers.get('q3', 'N/A')}
+
+You have 9 tools available:
+1. Tax Wizard (path: '/tax') - Saving tax, finding deductions.
+2. Portfolio X-Ray (path: '/portfolio') - Mutual funds/stocks optimization, XIRR.
+3. Couple's Planner (path: '/couples') - Married couples combining finances.
+4. Money Health (path: '/health') - General checkup for confused users.
+5. F.I.R.E Planner (path: '/fire') - Early retirement.
+6. Afford Advisor (path: '/afford') - Buying a house, car, or big asset.
+7. AI Budget Planner (path: '/budget') - Day-to-day budgeting and tracking.
+8. Proactive Alerts (path: '/alerts') - Tracking news impact.
+
+Pick the ONE best tool for this user based on their answers.
+
+CRITICAL INSTRUCTION for 'reasoning': 
+Your 'reasoning' MUST explicitly answer "WHY is this recommended?" 
+Write 1-2 powerful, conversational sentences combining their exact answers with what the tool will do for them.
+Example: "You mentioned you want to afford a big purchase while feeling like your money is a mess. The Afford Advisor will look at your cashflow and tell you exactly if you can buy it today, or how many months you need to wait."
+
+Return ONLY valid JSON resembling:
+{{
+  "recommended_path": "/tax",
+  "tool_name": "Tax Wizard",
+  "reasoning": "Because you want to maximize your take-home salary and find missed deductions, the Tax Wizard will instantly scan your Form 16 and find your missing money."
+}}
+"""
+
+    try:
+        resp = client.chat.completions.create(
+            model=settings.GPT_MODEL,
+            messages=[
+                {"role": "system", "content": "You are a financial routing agent. Always return valid JSON."},
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.3,
+            response_format={"type": "json_object"},
+        )
+        import json
+        import re
+        
+        content = resp.choices[0].message.content.strip()
+        
+        # Strip markdown json block if present
+        if content.startswith("```"):
+            content = re.sub(r"^```(json)?", "", content)
+            content = re.sub(r"```$", "", content).strip()
+            
+        data = json.loads(content)
+        
+        # Ensure exact keys to prevent Pydantic ValidationError
+        return {
+            "recommended_path": data.get("recommended_path", data.get("path", "/health")),
+            "tool_name": data.get("tool_name", data.get("toolName", data.get("name", "Money Health Score"))),
+            "reasoning": data.get("reasoning", "Let's start your journey with a quick financial health checkup!")
+        }
+    except Exception as e:
+        return {
+            "recommended_path": "/health",
+            "tool_name": "Money Health Score",
+            "reasoning": "Let's start your journey with a quick overall financial health checkup!"
+        }

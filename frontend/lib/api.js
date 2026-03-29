@@ -101,3 +101,15 @@ export async function getAlerts(params = {}) {
 export async function checkHealth() {
   return _get("/api/health");
 }
+
+// ── Affordability ────────────────────────────────────────────────────
+
+export async function checkAffordability(data) {
+  return _post("/api/affordability-check", data);
+}
+
+// ── Budget ────────────────────────────────────────────────────────
+
+export async function getBudgetPlan(data) {
+  return _post("/api/budget-plan", data);
+}

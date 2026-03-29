@@ -1,18 +1,24 @@
 import "./globals.css";
+import { Anton, Playfair_Display, Space_Mono, Inter } from "next/font/google";
+import CustomCursor from "../components/CustomCursor";
+
+const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton" });
+const playfair = Playfair_Display({ subsets: ["latin"], style: ["italic", "normal"], variable: "--font-playfair" });
+const spaceMono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-space-mono" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
-  title: "MoneyMentor AI — CFO for Every Indian",
-  description: "India's first AI-powered personal CFO. Tax optimization, portfolio X-Ray, FIRE planning, and money health scoring — all in one place.",
+  title: "ET × MoneyMentor AI",
+  description: "India's first AI-powered personal CFO — by Economic Times Wealth.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body>{children}</body>
+    <html lang="en" className={`${anton.variable} ${playfair.variable} ${spaceMono.variable} ${inter.variable}`}>
+      <body className="font-sans overflow-x-hidden" style={{ background: 'var(--bg)', color: 'var(--text-primary)' }}>
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }
