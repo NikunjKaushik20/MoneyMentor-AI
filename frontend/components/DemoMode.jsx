@@ -14,7 +14,9 @@ const PERSONAS = [
   { id: "kavita", name: "Kavita Shah", role: "Business Owner · Mumbai", income: "₹50L/yr", emoji: "👩‍💼", color: "from-amber-600/20 to-orange-600/20 border-amber-500/30" },
 ];
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL !== undefined 
+    ? process.env.NEXT_PUBLIC_API_URL 
+    : (typeof window !== 'undefined' ? "" : "http://localhost:8000");
 
 export default function DemoMode({ section, onLoad, className = "" }) {
   const [loading, setLoading] = useState(null);

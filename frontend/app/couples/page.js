@@ -2,7 +2,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL !== undefined 
+    ? process.env.NEXT_PUBLIC_API_URL 
+    : (typeof window !== 'undefined' ? "" : "http://localhost:8000");
 const fmt = (n) => Math.round(n || 0).toLocaleString("en-IN");
 
 const defaultPartner = (name) => ({

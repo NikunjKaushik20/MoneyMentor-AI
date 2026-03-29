@@ -61,7 +61,7 @@ export default function Onboarding() {
         setLoading(true);
         setFeedback(false);
         try {
-          const res = await fetch("http://localhost:8000/api/onboarding", {
+          const res = await fetch("/api/onboarding", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ answers: newAnswers }),
