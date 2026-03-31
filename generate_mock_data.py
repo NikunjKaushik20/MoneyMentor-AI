@@ -3,10 +3,10 @@ Generate realistic mock PDFs for testing MoneyMentor AI uploads.
 Uses reportlab (pip install reportlab).
 
 Creates:
-  d:/ET/mock_data/form16_arjun.pdf   - Form 16 for Arjun Mehta  (Software Eng, Rs.24L)
-  d:/ET/mock_data/form16_sunita.pdf  - Form 16 for Sunita Verma (Teacher, Rs.8L)
-  d:/ET/mock_data/cams_arjun.pdf    - CAMS statement for Arjun  (5 mutual funds)
-  d:/ET/mock_data/cams_sunita.pdf   - CAMS statement for Sunita (3 mutual funds)
+  ./mock_data/form16_arjun.pdf   - Form 16 for Arjun Mehta  (Software Eng, Rs.24L)
+  ./mock_data/form16_sunita.pdf  - Form 16 for Sunita Verma (Teacher, Rs.8L)
+  ./mock_data/cams_arjun.pdf    - CAMS statement for Arjun  (5 mutual funds)
+  ./mock_data/cams_sunita.pdf   - CAMS statement for Sunita (3 mutual funds)
 
 Run: python generate_mock_data.py
 """
@@ -386,7 +386,7 @@ if __name__ == "__main__":
     make_form16(os.path.join(OUT_DIR, "form16_sunita.pdf"), FORM16_SUNITA)
     make_cams(os.path.join(OUT_DIR, "cams_arjun.pdf"), CAMS_ARJUN)
     make_cams(os.path.join(OUT_DIR, "cams_sunita.pdf"), CAMS_SUNITA)
-    print("\n4 mock files ready in d:/ET/mock_data/")
+    print("\n4 mock files ready in ./mock_data/")
     print("   form16_arjun.pdf  - Software Engineer, Rs.24L salary")
     print("   form16_sunita.pdf - Teacher, Rs.8L salary")
     print("   cams_arjun.pdf    - 5 mutual funds, Rs.32L portfolio")

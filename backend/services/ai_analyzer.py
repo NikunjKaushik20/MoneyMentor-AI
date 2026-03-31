@@ -122,7 +122,7 @@ def determine_best_tool(answers: dict) -> dict:
     """Uses LLM to evaluate the onboarding answers and route to the best tool."""
     client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
-    prompt = f"""You are the ET MoneyMentor Onboarding AI.
+    prompt = f"""You are the MoneyMentor Onboarding AI.
 The user has answered 3 questions about their financial state:
 1. Primary Goal: {answers.get('q1', 'N/A')}
 2. Current Situation: {answers.get('q2', 'N/A')}

@@ -77,7 +77,7 @@ export default function Dashboard() {
 
       <footer style={{ borderTop: '1px solid var(--border)' }} className="py-6 px-6 text-center">
         <span className="font-mono text-[9px]" style={{ color: 'var(--text-faint)' }}>
-          <span className="text-[#E4002B] font-bold">ET</span> × MoneyMentor AI · CFO for Every Indian
+          <span className="text-[#E4002B] font-bold">M</span> × MoneyMentor AI · CFO for Every Indian
         </span>
       </footer>
     </div>

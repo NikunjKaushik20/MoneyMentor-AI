@@ -10,7 +10,7 @@ module.exports = {
         unseen: {
           black: "#000000",
           offwhite: "#E5E5E5",
-          red: "#E4002B",      // ET Red as main accent
+          red: "#E4002B",      // Red as main accent
           yellow: "#FACC15",   // alternative accent
           grey: "#111111"
         },

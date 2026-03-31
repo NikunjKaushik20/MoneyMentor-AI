@@ -98,7 +98,7 @@ export default function Onboarding() {
       {/* Navbar overlay */}
       <nav className="fixed top-0 w-full z-50 p-6 flex items-center justify-between pointer-events-none">
         <div className="flex items-center gap-1.5 opacity-50">
-           <span className="text-[#E4002B] font-black text-xl tracking-tight">ET</span>
+           <span className="text-[#E4002B] font-black text-xl tracking-tight">M</span>
            <span className="text-xl font-extralight" style={{ color: 'var(--text-faint)' }}>×</span>
            <span className="font-bold text-[15px] tracking-wide" style={{ color: 'var(--text-primary)' }}>MoneyMentor</span>
         </div>

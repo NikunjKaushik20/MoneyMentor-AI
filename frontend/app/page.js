@@ -66,7 +66,7 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 backdrop-blur-xl" style={{ background: 'color-mix(in srgb, var(--bg) 80%, transparent)', borderBottom: '1px solid var(--border)' }}>
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-1.5 group">
-            <span className="text-[#E4002B] font-black text-xl tracking-tight">ET</span>
+            <span className="text-[#E4002B] font-black text-xl tracking-tight">M</span>
             <span className="text-xl font-extralight" style={{ color: 'var(--text-faint)' }}>×</span>
             <span className="font-bold text-[15px] tracking-wide" style={{ color: 'var(--text-primary)' }}>MoneyMentor AI</span>
           </a>
@@ -116,7 +116,7 @@ export default function Home() {
             transition={{ delay: 0.35, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="text-massive text-[clamp(3.5rem,12vw,11rem)] leading-[0.85] mx-auto"
           >
-            <span className="text-[#E4002B]">ET</span>
+            <span className="text-[#E4002B]">AI</span>
             <span style={{ color: 'var(--text-faint)' }} className="font-extralight text-[0.6em] mx-2 md:mx-4">×</span>
             <span style={{ color: 'var(--text-primary)' }}>MONEY</span>
             <br />
@@ -245,16 +245,16 @@ export default function Home() {
       <section className="py-24 md:py-36 px-6 md:px-12" style={{ borderTop: '1px solid var(--border)' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
-            <span className="font-mono text-[10px] text-[#E4002B] tracking-[0.2em] uppercase block mb-6">— ET Wealth Integration</span>
+            <span className="font-mono text-[10px] text-[#E4002B] tracking-[0.2em] uppercase block mb-6">— News Integration</span>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="text-massive text-5xl md:text-7xl leading-[0.85] mb-4">
-              LIVES INSIDE <span className="text-[#E4002B]">ET</span>
+              LIVES INSIDE <span className="text-[#E4002B]">NEWS</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-editorial text-xl md:text-2xl mb-12" style={{ color: 'var(--text-muted)' }}>
-              Embedded as a contextual AI widget inside Economic Times Wealth articles
+              Embedded as a contextual AI widget inside financial news articles
             </p>
           </Reveal>
 
@@ -262,7 +262,7 @@ export default function Home() {
             <div className="text-left relative p-8" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
               <div className="absolute -top-px left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#E4002B]/40 to-transparent" />
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-[#E4002B] font-black text-sm">ET</span>
+                <span className="text-[#E4002B] font-black text-sm">NW</span>
                 <span style={{ color: 'var(--text-faint)' }}>|</span>
                 <span className="font-mono text-[9px] tracking-wider" style={{ color: 'var(--text-muted)' }}>WEALTH • TAX PLANNING</span>
               </div>
@@ -272,7 +272,7 @@ export default function Home() {
               <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--text-muted)' }}>
                 "95% of Indians overpay tax because they don't know which regime is better for their salary bracket. Upload your Form 16 and find out in 60 seconds."
               </p>
-              <button onClick={() => router.push("/et-article")}
+              <button onClick={() => router.push("/article")}
                 className="w-full py-4 bg-[#E4002B] text-white font-bold text-sm uppercase tracking-[0.12em] hover:opacity-85 transition-opacity">
                 Read Full Article & Analyse →
               </button>
@@ -285,7 +285,7 @@ export default function Home() {
       <footer style={{ borderTop: '1px solid var(--border)' }} className="py-10 px-6 md:px-12">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-1.5">
-            <span className="text-[#E4002B] font-black text-sm">ET</span>
+            <span className="text-[#E4002B] font-black text-sm">M</span>
             <span style={{ color: 'var(--text-faint)' }}>×</span>
             <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>MoneyMentor AI</span>
           </div>

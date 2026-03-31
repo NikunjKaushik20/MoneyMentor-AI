@@ -8,8 +8,8 @@ const spaceMono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"], varia
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
-  title: "ET × MoneyMentor AI",
-  description: "India's first AI-powered personal CFO — by Economic Times Wealth.",
+  title: "MoneyMentor AI",
+  description: "India's first AI-powered personal CFO.",
 };
 
 export default function RootLayout({ children }) {

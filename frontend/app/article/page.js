@@ -7,7 +7,7 @@ export default function ETArticlePage() {
   return (
     <div className="space-y-8 max-w-3xl mx-auto">
       <div className="font-mono text-[10px] tracking-wider" style={{ color: 'var(--text-faint)' }}>
-        <span className="text-[#E4002B]">ET Wealth</span> / Tax Planning / Budget 2025
+        <span className="text-[#E4002B]">FinanceNews</span> / Tax Planning / Budget 2025
       </div>
 
       <article className="space-y-6">
@@ -16,7 +16,7 @@ export default function ETArticlePage() {
           <h1 className="text-massive text-3xl md:text-5xl leading-[0.9]">BUDGET 2025:<br/>NEW TAX REGIME<br/>IS NOW DEFAULT</h1>
           <p className="text-editorial text-xl" style={{ color: 'var(--text-muted)' }}>What every salaried employee must do before April 1</p>
           <div className="font-mono text-[9px] flex gap-3" style={{ color: 'var(--text-faint)' }}>
-            <span>By ET Wealth Bureau</span><span>|</span><span>Mar 24, 2026</span><span>|</span><span>5 min read</span>
+            <span>By The Bureau</span><span>|</span><span>Mar 24, 2026</span><span>|</span><span>5 min read</span>
           </div>
         </div>
 
@@ -31,7 +31,7 @@ export default function ETArticlePage() {
           <div className="my-8 p-8" style={{ border: '1px solid rgba(228,0,43,0.3)', background: 'rgba(228,0,43,0.03)' }}>
             <div className="flex gap-2 mb-3">
               <span className="font-mono text-[9px] text-[#E4002B] border border-[#E4002B]/20 px-2 py-0.5">AI-Powered</span>
-              <span className="font-mono text-[9px] text-[#E4002B] border border-[#E4002B]/20 px-2 py-0.5">ET Exclusive</span>
+              <span className="font-mono text-[9px] text-[#E4002B] border border-[#E4002B]/20 px-2 py-0.5">Exclusive</span>
             </div>
             <h3 className="text-massive text-xl mb-2">WHICH REGIME SAVES YOU MORE?</h3>
             <p className="text-editorial mb-6" style={{ color: 'var(--text-muted)' }}>Upload your Form 16 and get an instant comparison — powered by MoneyMentor AI.</p>
@@ -59,7 +59,7 @@ export default function ETArticlePage() {
       </article>
 
       <div className="space-y-3 pb-8">
-        <p className="font-mono text-[10px] tracking-wider" style={{ color: 'var(--text-muted)' }}>More from ET Wealth</p>
+        <p className="font-mono text-[10px] tracking-wider" style={{ color: 'var(--text-muted)' }}>More from FinanceNews</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
             { title: "RBI Cuts Repo Rate by 25bps — Will Your EMI Fall?", tag: "RBI", cta: "/alerts" },

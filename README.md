@@ -1,5 +1,5 @@
 # MoneyMentor AI 💰
-*Your Personal AI CFO — Built for the ET AI Hackathon 2026*
+*Your Personal AI CFO — Built for the ProteX Hackathon*
 
 > **The Problem:** Over 95% of Indians overpay their taxes or mismanage their investments simply because personal finance is too complex, filled with jargon, and largely relies on expensive advisors.  
 > **The Solution:** MoneyMentor AI. Think of it as a personalized, Chief Financial Officer (CFO) in your pocket—an AI trained strictly on Indian financial context (FY 2025-26) to manage everything from your Form 16 to your early retirement.
@@ -163,5 +163,5 @@ The backend exposes a highly modular REST API. Here are the stars of the show:
 
 ## Acknowledgements
 
-Built from the ground up for the **ET AI Hackathon 2026** 🇮🇳. 
+Built from the ground up for the **AI Hackathon 2026** 🇮🇳. 
 *Empowering India, one intelligent financial decision at a time.*
