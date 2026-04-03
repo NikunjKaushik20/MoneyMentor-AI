@@ -65,10 +65,8 @@ export default function Home() {
       {/* ═══ NAVBAR ═══ */}
       <nav className="fixed top-0 w-full z-50 backdrop-blur-xl" style={{ background: 'color-mix(in srgb, var(--bg) 80%, transparent)', borderBottom: '1px solid var(--border)' }}>
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-1.5 group">
-            <span className="text-[#E4002B] font-black text-xl tracking-tight">M</span>
-            <span className="text-xl font-extralight" style={{ color: 'var(--text-faint)' }}>×</span>
-            <span className="font-bold text-[15px] tracking-wide" style={{ color: 'var(--text-primary)' }}>MoneyMentor AI</span>
+          <a href="/" className="flex items-center group">
+            <span className="font-bold text-lg tracking-wide" style={{ color: 'var(--text-primary)' }}>MoneyMentor AI</span>
           </a>
           <div className="hidden md:flex items-center gap-1">
             {["Tax", "Portfolio", "Couples", "Health", "FIRE", "Afford", "Budget", "Alerts"].map(l => (
@@ -284,10 +282,8 @@ export default function Home() {
       {/* ═══ FOOTER ═══ */}
       <footer style={{ borderTop: '1px solid var(--border)' }} className="py-10 px-6 md:px-12">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-1.5">
-            <span className="text-[#E4002B] font-black text-sm">M</span>
-            <span style={{ color: 'var(--text-faint)' }}>×</span>
-            <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>MoneyMentor AI</span>
+          <div className="flex items-center">
+            <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>MoneyMentor AI</span>
           </div>
           <div className="flex gap-6 font-mono text-[8px] tracking-wider" style={{ color: 'var(--text-faint)' }}>
             <span>🔒 Processed in-memory</span>

@@ -3,6 +3,14 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { getHealthScore } from "../../lib/api";
 
+const HealthField = ({ label, value, onChange, placeholder = "0" }) => (
+  <label className="flex items-center justify-between py-2 group" style={{ borderBottom: '1px solid var(--border)' }}>
+    <span className="font-mono text-[10px] tracking-wider uppercase transition-colors" style={{ color: 'var(--text-muted)' }}>{label}</span>
+    <input type="number" placeholder={placeholder} value={value} onChange={onChange}
+      className="input-terminal text-right w-28" />
+  </label>
+);
+
 export default function HealthPage() {
   const [form, setForm] = useState({
     annual_income: "", monthly_expenses: "", emergency_fund: "",
@@ -30,14 +38,6 @@ export default function HealthPage() {
   const scoreColor = (s) => s >= 70 ? "text-emerald-400" : s >= 50 ? "text-amber-400" : "text-[#E4002B]";
   const scoreBg = (s) => s >= 70 ? "bg-emerald-500" : s >= 50 ? "bg-amber-500" : "bg-[#E4002B]";
 
-  const Field = ({ label, field, placeholder = "0" }) => (
-    <label className="flex items-center justify-between py-2 group" style={{ borderBottom: '1px solid var(--border)' }}>
-      <span className="font-mono text-[10px] tracking-wider uppercase transition-colors" style={{ color: 'var(--text-muted)' }}>{label}</span>
-      <input type="number" placeholder={placeholder} value={form[field] || ""} onChange={(e) => set(field, e.target.value)}
-        className="input-terminal text-right w-28" />
-    </label>
-  );
-
   return (
     <div className="space-y-8">
       <div>
@@ -58,7 +58,7 @@ export default function HealthPage() {
             <div key={title} className="p-6" style={{ border: '1px solid var(--border)' }}>
               <p className="font-mono text-[10px] tracking-wider uppercase mb-4" style={{ color: 'var(--text-muted)' }}>{title}</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8">
-                {fields.map(([label, field, ph]) => <Field key={field} label={label} field={field} placeholder={ph} />)}
+                {fields.map(([label, field, ph]) => <HealthField key={field} label={label} value={form[field] || ""} onChange={(e) => set(field, e.target.value)} placeholder={ph} />)}
               </div>
             </div>
           ))}

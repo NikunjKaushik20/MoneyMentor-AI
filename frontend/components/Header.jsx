@@ -35,10 +35,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 backdrop-blur-xl" style={{ background: 'color-mix(in srgb, var(--bg) 80%, transparent)', borderBottom: '1px solid var(--border)' }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-14">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1.5">
-          <span className="text-[#E4002B] font-black text-lg">M</span>
-          <span style={{ color: 'var(--text-faint)' }} className="text-lg font-extralight">×</span>
-          <span style={{ color: 'var(--text-primary)' }} className="font-bold text-sm tracking-wide">MoneyMentor AI</span>
+        <Link href="/" className="flex items-center">
+          <span style={{ color: 'var(--text-primary)' }} className="font-bold text-lg tracking-wide">MoneyMentor AI</span>
         </Link>
 
         {/* Nav */}

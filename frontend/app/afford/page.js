@@ -4,6 +4,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { checkAffordability } from "../../lib/api";
 
 const fmt = (n) => "₹" + Math.round(n || 0).toLocaleString("en-IN");
+
+const AffordField = ({ label, value, onChange, placeholder = "0", suffix = "" }) => (
+  <label className="flex items-center justify-between py-2 group" style={{ borderBottom: '1px solid var(--border)' }}>
+    <span className="font-mono text-[10px] tracking-wider uppercase transition-colors" style={{ color: 'var(--text-muted)' }}>{label}</span>
+    <div className="flex items-center gap-1">
+      <input type="number" placeholder={placeholder} value={value} onChange={onChange}
+        className="input-terminal text-right w-28" />
+      {suffix && <span className="font-mono text-[8px]" style={{ color: 'var(--text-faint)' }}>{suffix}</span>}
+    </div>
+  </label>
+);
 const PRESETS = [
   { name: "Car", cost: 1200000, tenure: 5, rate: 8.5, down: 20 },
   { name: "Bike", cost: 250000, tenure: 3, rate: 9.5, down: 20 },
@@ -61,16 +72,7 @@ export default function AffordPage() {
   const verdictColor = (c) => c === "green" ? "text-emerald-400" : c === "amber" ? "text-amber-400" : "text-[#E4002B]";
   const verdictBorder = (c) => c === "green" ? "border-emerald-500/30" : c === "amber" ? "border-amber-500/30" : "border-[#E4002B]/30";
 
-  const Field = ({ label, field, placeholder = "0", suffix = "" }) => (
-    <label className="flex items-center justify-between py-2 group" style={{ borderBottom: '1px solid var(--border)' }}>
-      <span className="font-mono text-[10px] tracking-wider uppercase transition-colors" style={{ color: 'var(--text-muted)' }}>{label}</span>
-      <div className="flex items-center gap-1">
-        <input type="number" placeholder={placeholder} value={form[field] || ""} onChange={(e) => set(field, e.target.value)}
-          className="input-terminal text-right w-28" />
-        {suffix && <span className="font-mono text-[8px]" style={{ color: 'var(--text-faint)' }}>{suffix}</span>}
-      </div>
-    </label>
-  );
+
 
   return (
     <div className="space-y-8">
@@ -114,10 +116,10 @@ export default function AffordPage() {
                 <input type="text" value={form.item_name} onChange={(e) => set("item_name", e.target.value)}
                   className="bg-transparent text-right text-sm outline-none border-b border-transparent focus:border-[#E4002B]" style={{ color: 'var(--text-primary)' }} placeholder="Car" />
               </label>
-              <Field label="Total Price" field="item_cost" placeholder="1200000" suffix="₹" />
-              <Field label="Down Payment" field="down_payment_pct" placeholder="20" suffix="%" />
-              <Field label="Loan Tenure" field="loan_tenure_years" placeholder="5" suffix="yrs" />
-              <Field label="Interest Rate" field="loan_interest_rate" placeholder="8.5" suffix="%" />
+              <AffordField label="Total Price" value={form.item_cost || ""} onChange={(e) => set("item_cost", e.target.value)} placeholder="1200000" suffix="₹" />
+              <AffordField label="Down Payment" value={form.down_payment_pct || ""} onChange={(e) => set("down_payment_pct", e.target.value)} placeholder="20" suffix="%" />
+              <AffordField label="Loan Tenure" value={form.loan_tenure_years || ""} onChange={(e) => set("loan_tenure_years", e.target.value)} placeholder="5" suffix="yrs" />
+              <AffordField label="Interest Rate" value={form.loan_interest_rate || ""} onChange={(e) => set("loan_interest_rate", e.target.value)} placeholder="8.5" suffix="%" />
             </div>
           </div>
 
@@ -125,12 +127,12 @@ export default function AffordPage() {
           <div className="p-6" style={{ border: '1px solid var(--border)' }}>
             <p className="font-mono text-[10px] tracking-wider uppercase mb-4" style={{ color: 'var(--text-muted)' }}>Your Financial Profile</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8">
-              <Field label="Monthly Income" field="monthly_income" placeholder="100000" suffix="₹" />
-              <Field label="Monthly Expenses" field="monthly_expenses" placeholder="45000" suffix="₹" />
-              <Field label="Existing EMIs" field="existing_emis" placeholder="0" suffix="₹/mo" />
-              <Field label="Total Savings" field="total_savings" placeholder="500000" suffix="₹" />
-              <Field label="Monthly SIP" field="monthly_sip" placeholder="15000" suffix="₹/mo" />
-              <Field label="Age" field="age" placeholder="30" />
+              <AffordField label="Monthly Income" value={form.monthly_income || ""} onChange={(e) => set("monthly_income", e.target.value)} placeholder="100000" suffix="₹" />
+              <AffordField label="Monthly Expenses" value={form.monthly_expenses || ""} onChange={(e) => set("monthly_expenses", e.target.value)} placeholder="45000" suffix="₹" />
+              <AffordField label="Existing EMIs" value={form.existing_emis || ""} onChange={(e) => set("existing_emis", e.target.value)} placeholder="0" suffix="₹/mo" />
+              <AffordField label="Total Savings" value={form.total_savings || ""} onChange={(e) => set("total_savings", e.target.value)} placeholder="500000" suffix="₹" />
+              <AffordField label="Monthly SIP" value={form.monthly_sip || ""} onChange={(e) => set("monthly_sip", e.target.value)} placeholder="15000" suffix="₹/mo" />
+              <AffordField label="Age" value={form.age || ""} onChange={(e) => set("age", e.target.value)} placeholder="30" />
             </div>
           </div>
 

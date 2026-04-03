@@ -282,7 +282,8 @@ CAMS_ARJUN = {
     "funds": [
         {
             "name": "Parag Parikh Flexi Cap Fund - Direct Plan - Growth",
-            "folio": "9876543/01", "amc": "PPFAS Mutual Fund",
+            "folio": "9876543/01", "amc": "PPFAS Mutual Fund",w
+            
             "plan": "Direct", "category": "Flexi Cap",
             "units": 892.401, "nav": 78.9200,
             "current_value": 704499.60, "invested": 500000.00,

@@ -5,6 +5,17 @@ import { getBudgetPlan } from "../../lib/api";
 
 const fmt = (n) => "₹" + Math.round(n || 0).toLocaleString("en-IN");
 
+const BudgetField = ({ label, value, onChange, placeholder = "0", suffix = "₹", type = "number" }) => (
+  <label className="flex items-center justify-between py-2 group" style={{ borderBottom: '1px solid var(--border)' }}>
+    <span className="font-mono text-[10px] tracking-wider uppercase transition-colors" style={{ color: 'var(--text-muted)' }}>{label}</span>
+    <div className="flex items-center gap-1">
+      <input type={type} placeholder={placeholder} value={value} onChange={onChange}
+        className={`input-terminal text-right ${type === 'text' ? 'w-48' : 'w-24'}`} />
+      {suffix && <span className="font-mono text-[8px]" style={{ color: 'var(--text-faint)' }}>{suffix}</span>}
+    </div>
+  </label>
+);
+
 export default function BudgetPage() {
   const [form, setForm] = useState({
     monthly_income: "", rent: "", groceries: "", utilities: "",
@@ -42,16 +53,7 @@ export default function BudgetPage() {
     setResult(null);
   };
 
-  const Field = ({ label, field, placeholder = "0", suffix = "₹", type = "number" }) => (
-    <label className="flex items-center justify-between py-2 group" style={{ borderBottom: '1px solid var(--border)' }}>
-      <span className="font-mono text-[10px] tracking-wider uppercase transition-colors" style={{ color: 'var(--text-muted)' }}>{label}</span>
-      <div className="flex items-center gap-1">
-        <input type={type} placeholder={placeholder} value={form[field] || ""} onChange={(e) => set(field, e.target.value)}
-          className={`input-terminal text-right ${type === 'text' ? 'w-48' : 'w-24'}`} />
-        {suffix && <span className="font-mono text-[8px]" style={{ color: 'var(--text-faint)' }}>{suffix}</span>}
-      </div>
-    </label>
-  );
+
 
   return (
     <div className="space-y-8">
@@ -71,24 +73,24 @@ export default function BudgetPage() {
           <div className="p-6" style={{ border: '1px solid var(--border)' }}>
             <p className="font-mono text-[10px] text-[#E4002B] tracking-wider mb-4">Core Info</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8">
-              <Field label="Monthly In-Hand Income" field="monthly_income" placeholder="100000" />
-              <Field label="Financial Goal" field="financial_goal" placeholder="e.g. Save for a house" type="text" suffix="" />
-              <Field label="Age" field="age" placeholder="30" suffix="" />
-              <Field label="Dependants" field="dependants" placeholder="0" suffix="" />
+              <BudgetField label="Monthly In-Hand Income" value={form.monthly_income || ""} onChange={(e) => set("monthly_income", e.target.value)} placeholder="100000" />
+              <BudgetField label="Financial Goal" value={form.financial_goal || ""} onChange={(e) => set("financial_goal", e.target.value)} placeholder="e.g. Save for a house" type="text" suffix="" />
+              <BudgetField label="Age" value={form.age || ""} onChange={(e) => set("age", e.target.value)} placeholder="30" suffix="" />
+              <BudgetField label="Dependants" value={form.dependants || ""} onChange={(e) => set("dependants", e.target.value)} placeholder="0" suffix="" />
             </div>
           </div>
 
           <div className="p-6" style={{ border: '1px solid var(--border)' }}>
             <p className="font-mono text-[10px] tracking-wider uppercase mb-4" style={{ color: 'var(--text-muted)' }}>Fixed Needs</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8">
-              <Field label="Rent / Maintenance" field="rent" placeholder="20000" />
-              <Field label="Groceries & Household" field="groceries" placeholder="10000" />
-              <Field label="Utilities (Electricity, WiFi)" field="utilities" placeholder="3000" />
-              <Field label="Loan EMIs" field="emis" placeholder="5000" />
-              <Field label="Insurance Premiums" field="insurance" placeholder="2000" />
-              <Field label="Medical / Pharmacy" field="medical" placeholder="1000" />
-              <Field label="Transport (Fuel, Metro)" field="transport" placeholder="4000" />
-              <Field label="Education / Tuition" field="education" placeholder="0" />
+              <BudgetField label="Rent / Maintenance" value={form.rent || ""} onChange={(e) => set("rent", e.target.value)} placeholder="20000" />
+              <BudgetField label="Groceries & Household" value={form.groceries || ""} onChange={(e) => set("groceries", e.target.value)} placeholder="10000" />
+              <BudgetField label="Utilities (Electricity, WiFi)" value={form.utilities || ""} onChange={(e) => set("utilities", e.target.value)} placeholder="3000" />
+              <BudgetField label="Loan EMIs" value={form.emis || ""} onChange={(e) => set("emis", e.target.value)} placeholder="5000" />
+              <BudgetField label="Insurance Premiums" value={form.insurance || ""} onChange={(e) => set("insurance", e.target.value)} placeholder="2000" />
+              <BudgetField label="Medical / Pharmacy" value={form.medical || ""} onChange={(e) => set("medical", e.target.value)} placeholder="1000" />
+              <BudgetField label="Transport (Fuel, Metro)" value={form.transport || ""} onChange={(e) => set("transport", e.target.value)} placeholder="4000" />
+              <BudgetField label="Education / Tuition" value={form.education || ""} onChange={(e) => set("education", e.target.value)} placeholder="0" />
             </div>
           </div>
 
@@ -96,17 +98,17 @@ export default function BudgetPage() {
             <div className="p-6 flex flex-col" style={{ border: '1px solid var(--border)' }}>
               <p className="font-mono text-[10px] tracking-wider uppercase mb-4" style={{ color: 'var(--text-muted)' }}>Discretionary (Wants)</p>
               <div className="space-y-1 flex-1">
-                <Field label="Dining Out / Zomato" field="dining_out" placeholder="5000" />
-                <Field label="Shopping / Gadgets" field="shopping" placeholder="4000" />
-                <Field label="Subscriptions (Netflix, Gym)" field="subscriptions" placeholder="1500" />
-                <Field label="Other Expenses" field="other_expenses" placeholder="2000" />
+                <BudgetField label="Dining Out / Zomato" value={form.dining_out || ""} onChange={(e) => set("dining_out", e.target.value)} placeholder="5000" />
+                <BudgetField label="Shopping / Gadgets" value={form.shopping || ""} onChange={(e) => set("shopping", e.target.value)} placeholder="4000" />
+                <BudgetField label="Subscriptions (Netflix, Gym)" value={form.subscriptions || ""} onChange={(e) => set("subscriptions", e.target.value)} placeholder="1500" />
+                <BudgetField label="Other Expenses" value={form.other_expenses || ""} onChange={(e) => set("other_expenses", e.target.value)} placeholder="2000" />
               </div>
             </div>
             
             <div className="p-6 flex flex-col" style={{ border: '1px solid var(--border)' }}>
                <p className="font-mono text-[10px] tracking-wider uppercase mb-4" style={{ color: 'var(--text-muted)' }}>Current Savings</p>
                <div className="space-y-1">
-                 <Field label="Monthly SIPs / RD" field="sip_investments" placeholder="10000" />
+                 <BudgetField label="Monthly SIPs / RD" value={form.sip_investments || ""} onChange={(e) => set("sip_investments", e.target.value)} placeholder="10000" />
                </div>
             </div>
           </div>

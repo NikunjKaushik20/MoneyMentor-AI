@@ -52,31 +52,8 @@ export default function CouplesPage() {
     setResult(null);
   };
 
-  const PartnerPanel = ({ partner, setPartner, label }) => {
-    const set = (k, v) => setPartner({ ...partner, [k]: v });
-    return (
-      <div className="p-6 space-y-1" style={{ border: '1px solid var(--border)' }}>
-        <div className="flex items-center justify-between mb-4">
-          <input type="text" value={partner.name} onChange={(e) => set("name", e.target.value)}
-            className="bg-transparent text-massive text-2xl outline-none border-b border-transparent hover:border-[var(--border)] focus:border-[#E4002B] transition-colors w-full"
-            style={{ color: 'var(--text-primary)' }} />
-          <span className="font-mono text-[9px] ml-2" style={{ color: 'var(--text-faint)' }}>{label}</span>
-        </div>
-        <Field label="Annual Income" value={partner.annual_income} onChange={(v) => set("annual_income", v)} />
-        <Field label="Basic Salary" value={partner.basic_salary} onChange={(v) => set("basic_salary", v)} />
-        <Field label="80C / EPF / ELSS" value={partner.section_80c} onChange={(v) => set("section_80c", v)} />
-        <Field label="80CCD NPS" value={partner.section_80ccd_1b} onChange={(v) => set("section_80ccd_1b", v)} />
-        <Field label="80D Self" value={partner.section_80d_self} onChange={(v) => set("section_80d_self", v)} />
-        <Field label="80D Parents" value={partner.section_80d_parents} onChange={(v) => set("section_80d_parents", v)} />
-        <Field label="HRA Received" value={partner.hra_received} onChange={(v) => set("hra_received", v)} />
-        <Field label="Rent Paid" value={partner.rent_paid} onChange={(v) => set("rent_paid", v)} />
-        <label className="flex items-center justify-between py-2 cursor-pointer" style={{ borderBottom: '1px solid var(--border)' }}>
-          <span className="font-mono text-[10px] tracking-wider uppercase" style={{ color: 'var(--text-muted)' }}>Metro City</span>
-          <input type="checkbox" checked={partner.is_metro} onChange={(e) => set("is_metro", e.target.checked)} className="accent-[#E4002B] w-4 h-4" />
-        </label>
-      </div>
-    );
-  };
+  const updatePartnerA = (k, v) => setPartnerA(p => ({ ...p, [k]: v }));
+  const updatePartnerB = (k, v) => setPartnerB(p => ({ ...p, [k]: v }));
 
   return (
     <div className="space-y-8">
@@ -90,8 +67,46 @@ export default function CouplesPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <PartnerPanel partner={partnerA} setPartner={setPartnerA} label="P.01" />
-        <PartnerPanel partner={partnerB} setPartner={setPartnerB} label="P.02" />
+        <div className="p-6 space-y-1" style={{ border: '1px solid var(--border)' }}>
+          <div className="flex items-center justify-between mb-4">
+            <input type="text" value={partnerA.name} onChange={(e) => updatePartnerA("name", e.target.value)}
+              className="bg-transparent text-massive text-2xl outline-none border-b border-transparent hover:border-[var(--border)] focus:border-[#E4002B] transition-colors w-full"
+              style={{ color: 'var(--text-primary)' }} />
+            <span className="font-mono text-[9px] ml-2" style={{ color: 'var(--text-faint)' }}>P.01</span>
+          </div>
+          <Field label="Annual Income" value={partnerA.annual_income} onChange={(v) => updatePartnerA("annual_income", v)} />
+          <Field label="Basic Salary" value={partnerA.basic_salary} onChange={(v) => updatePartnerA("basic_salary", v)} />
+          <Field label="80C / EPF / ELSS" value={partnerA.section_80c} onChange={(v) => updatePartnerA("section_80c", v)} />
+          <Field label="80CCD NPS" value={partnerA.section_80ccd_1b} onChange={(v) => updatePartnerA("section_80ccd_1b", v)} />
+          <Field label="80D Self" value={partnerA.section_80d_self} onChange={(v) => updatePartnerA("section_80d_self", v)} />
+          <Field label="80D Parents" value={partnerA.section_80d_parents} onChange={(v) => updatePartnerA("section_80d_parents", v)} />
+          <Field label="HRA Received" value={partnerA.hra_received} onChange={(v) => updatePartnerA("hra_received", v)} />
+          <Field label="Rent Paid" value={partnerA.rent_paid} onChange={(v) => updatePartnerA("rent_paid", v)} />
+          <label className="flex items-center justify-between py-2 cursor-pointer" style={{ borderBottom: '1px solid var(--border)' }}>
+            <span className="font-mono text-[10px] tracking-wider uppercase" style={{ color: 'var(--text-muted)' }}>Metro City</span>
+            <input type="checkbox" checked={partnerA.is_metro} onChange={(e) => updatePartnerA("is_metro", e.target.checked)} className="accent-[#E4002B] w-4 h-4" />
+          </label>
+        </div>
+        <div className="p-6 space-y-1" style={{ border: '1px solid var(--border)' }}>
+          <div className="flex items-center justify-between mb-4">
+            <input type="text" value={partnerB.name} onChange={(e) => updatePartnerB("name", e.target.value)}
+              className="bg-transparent text-massive text-2xl outline-none border-b border-transparent hover:border-[var(--border)] focus:border-[#E4002B] transition-colors w-full"
+              style={{ color: 'var(--text-primary)' }} />
+            <span className="font-mono text-[9px] ml-2" style={{ color: 'var(--text-faint)' }}>P.02</span>
+          </div>
+          <Field label="Annual Income" value={partnerB.annual_income} onChange={(v) => updatePartnerB("annual_income", v)} />
+          <Field label="Basic Salary" value={partnerB.basic_salary} onChange={(v) => updatePartnerB("basic_salary", v)} />
+          <Field label="80C / EPF / ELSS" value={partnerB.section_80c} onChange={(v) => updatePartnerB("section_80c", v)} />
+          <Field label="80CCD NPS" value={partnerB.section_80ccd_1b} onChange={(v) => updatePartnerB("section_80ccd_1b", v)} />
+          <Field label="80D Self" value={partnerB.section_80d_self} onChange={(v) => updatePartnerB("section_80d_self", v)} />
+          <Field label="80D Parents" value={partnerB.section_80d_parents} onChange={(v) => updatePartnerB("section_80d_parents", v)} />
+          <Field label="HRA Received" value={partnerB.hra_received} onChange={(v) => updatePartnerB("hra_received", v)} />
+          <Field label="Rent Paid" value={partnerB.rent_paid} onChange={(v) => updatePartnerB("rent_paid", v)} />
+          <label className="flex items-center justify-between py-2 cursor-pointer" style={{ borderBottom: '1px solid var(--border)' }}>
+            <span className="font-mono text-[10px] tracking-wider uppercase" style={{ color: 'var(--text-muted)' }}>Metro City</span>
+            <input type="checkbox" checked={partnerB.is_metro} onChange={(e) => updatePartnerB("is_metro", e.target.checked)} className="accent-[#E4002B] w-4 h-4" />
+          </label>
+        </div>
       </div>
 
       <div className="p-6" style={{ border: '1px solid var(--border)' }}>

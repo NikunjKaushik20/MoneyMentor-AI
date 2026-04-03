@@ -98,9 +98,7 @@ export default function Onboarding() {
       {/* Navbar overlay */}
       <nav className="fixed top-0 w-full z-50 p-6 flex items-center justify-between pointer-events-none">
         <div className="flex items-center gap-1.5 opacity-50">
-           <span className="text-[#E4002B] font-black text-xl tracking-tight">M</span>
-           <span className="text-xl font-extralight" style={{ color: 'var(--text-faint)' }}>×</span>
-           <span className="font-bold text-[15px] tracking-wide" style={{ color: 'var(--text-primary)' }}>MoneyMentor</span>
+          <span className="font-bold text-[15px] tracking-wide" style={{ color: 'var(--text-primary)' }}>MoneyMentor AI</span>
         </div>
       </nav>
 
@@ -153,7 +151,7 @@ export default function Onboarding() {
                           className="text-left p-6 md:p-8 rounded-none border hover:border-[#E4002B]/60 transition-all duration-300 group hover:translate-x-2"
                           style={{ borderColor: 'color-mix(in srgb, currentColor 20%, transparent)', background: 'color-mix(in srgb, var(--bg-card) 50%, transparent)' }}
                         >
-                          <span className="font-mono text-[9px] block mb-2 opacity-50 group-hover:text-[#E4002B]">OPTION {["A","B","C","D"][idx]}</span>
+                          <span className="font-mono text-[9px] block mb-2 opacity-50 group-hover:text-[#E4002B]">OPTION {["A", "B", "C", "D"][idx]}</span>
                           <span className="text-editorial text-lg md:text-xl group-hover:opacity-100 opacity-80 transition-opacity">
                             {option}
                           </span>
@@ -182,21 +180,21 @@ export default function Onboarding() {
                   <span className="font-mono text-[10px] text-[#E4002B] tracking-[0.2em] uppercase block mb-2">
                     Based on your answers, here's your next best financial move
                   </span>
-                  
+
                   <h2 className="text-massive text-4xl md:text-6xl" style={{ color: 'var(--text-primary)' }}>
                     Your {(result.tool_name || "Money Health Score").replace(/^Your /i, '')}
                   </h2>
-                  
+
                   <div className="mt-8 p-6 text-left border-l-2 border-[#E4002B]" style={{ background: 'color-mix(in srgb, var(--bg-card) 50%, transparent)' }}>
                     <div className="flex items-center gap-2 mb-2">
-                       <span className="text-xs font-mono opacity-50">WHY WE RECOMMEND THIS</span>
+                      <span className="text-xs font-mono opacity-50">WHY WE RECOMMEND THIS</span>
                     </div>
                     <p className="text-editorial text-lg md:text-xl opacity-80 max-w-lg mx-auto leading-relaxed">
                       "{result.reasoning || "Let's start your journey with a quick financial health checkup!"}"
                     </p>
                   </div>
 
-                  <button 
+                  <button
                     onClick={handleContinue}
                     className="btn-primary mt-12 px-12 py-4 shadow-lg shadow-[#E4002B]/20 transition-transform hover:scale-105"
                   >
