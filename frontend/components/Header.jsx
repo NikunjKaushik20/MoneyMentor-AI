@@ -75,10 +75,7 @@ export default function Header() {
               </svg>
             )}
           </button>
-          <span className="hidden lg:block font-mono text-[9px] border px-3 py-1.5 tracking-wider"
-            style={{ color: '#E4002B', borderColor: 'rgba(228, 0, 43, 0.25)' }}>
-            AI HACKATHON 2026
-          </span>
+            
         </div>
       </div>
     </header>

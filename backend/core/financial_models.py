@@ -1,16 +1,7 @@
-"""
-Financial models for MoneyMentor AI.
-XIRR, fund overlap detection, expense ratio drag, benchmark comparison, portfolio metrics.
-"""
 
 from typing import List, Dict, Tuple, Optional
 import math
 from datetime import date, datetime
-
-
-# ===================================================================
-# DATA STRUCTURES (dicts for simplicity — schemas in schemas.py)
-# ===================================================================
 
 
 # Expense ratios for direct vs regular plans (approx industry averages)
@@ -31,7 +22,7 @@ NIFTY50_ANNUAL_RETURN = 12.5  # 10-year CAGR approximation
 
 
 # ===================================================================
-# XIRR — Newton-Raphson Method
+# XIRR — Newton-Raphson Method ( Extended Internal Rate of Return)
 # ===================================================================
 
 

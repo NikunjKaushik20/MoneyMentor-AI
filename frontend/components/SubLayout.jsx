@@ -11,7 +11,7 @@ export default function SubLayout({ children }) {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
           <span className="font-mono text-[9px] tracking-wider" style={{ color: 'var(--text-faint)' }}>🔒 Data processed in-memory</span>
           <span className="font-mono text-[9px] tracking-wider" style={{ color: 'var(--text-faint)' }}>
-            <span className="text-[#E4002B] font-bold">M</span> × MoneyMentor AI
+            <span className="text-[#E4002B] font-bold">MoneyMentor AI</span>
           </span>
           <span className="font-mono text-[9px] tracking-wider" style={{ color: 'var(--text-faint)' }}>🧮 Deterministic tax engine</span>
         </div>
